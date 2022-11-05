@@ -1,8 +1,0 @@
-[Unit]
-Description=autostart script
-
-[Service]
-ExecStart=/home/sam/autostart.sh
-
-[Install]
-WantedBy=multi-user.target
