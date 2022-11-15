@@ -566,13 +566,14 @@ client.connect_signal("!property::fullscreen",
 beautiful.useless_gap = 15
 
 -- Autostart Applications --
-awful.spawn.with_shell("picom --experimental-backends")
-awful.spawn.with_shell("xrandr --output Virtual-1 --mode 1920x1080 --rate 60")
-awful.spawn.with_shell("source ~/.config/polybar/launch_polybar.sh")
+-- awful.spawn.with_shell("picom --experimental-backends")
+awful.spawn.with_shell("picom &")
+-- awful.spawn.with_shell("xrandr --output DP-2  --mode 2560x1440 --rate 60")
+awful.spawn.with_shell("source $HOME/.config/polybar/launch_polybar.sh")
 awful.spawn.with_shell("feh --bg-fill --randomize /home/sam/Pictures/*")
 -- awful.spawn.with_shell("fcitx5 &") -- 不知道为什么不起作用
 awful.spawn.with_shell("mpd &")
-awful.spawn.with_shell("imwheel")
+-- awful.spawn.with_shell("imwheel")
 
 
 
