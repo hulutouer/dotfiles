@@ -1,0 +1,2 @@
+Nov 12 01:12 : exception: Failed to access /home/sam/Music: No such file or directory
+Nov 12 01:12 : mixer: Failed to read mixer for 'default detected output': no such mixer control: PCM
