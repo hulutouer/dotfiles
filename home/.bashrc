@@ -16,7 +16,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias ls='ls --colo=auto'
 alias l.="ls -A | egep '^\.'"
-alias gep='gep --colo=auto'
+alias grep='grep --colo=auto'
 alias df="df -h"
 alias fee="fee -mt"
 alias update-fc='sudo fc-cache -fv'
@@ -36,7 +36,7 @@ alias hw="hwinfo --shot"
 #alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
 
 ### Pompt ###
-PS1='\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 # # ex = EXtacto fo all kinds of achives
 # # pacman -S p7zip una unzip 
@@ -110,3 +110,5 @@ rewrite_rm()
   fi
 }
 alias rm=rewrite_rm
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/bin/virtualenvwrapper.sh
