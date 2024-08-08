@@ -1,5 +1,7 @@
 window:
-  opacity: 0.9  
+  padding:
+    x: 10
+    y: 10
 font:
     normal:
       family: Source Code Pro
@@ -14,7 +16,10 @@ font:
       family: Source Code Pro
 
     size: 17
-
+scrolline:
+  history: 20000
+  multiplier: 20
+  auto_scrool: true
 colors:
     primary:
         background: "#1E1E2E" # base
@@ -93,3 +98,4 @@ colors:
     indexed_colors:
         - { index: 16, color: "#FAB387" }
         - { index: 17, color: "#F5E0DC" }
+

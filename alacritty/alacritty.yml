@@ -1,6 +1,15 @@
 import:
   - /home/sam/.config/alacritty/catppuccin/alacritty/catppuccin-mocha.yml
 
-    # - /home/sam/.config/alacritty/catppuccin/alacritty/alacritty.yml
+  # - home/sam/.config/alacritty/catppuccin/alacritty/alacritty.yml
 
 
+live_config_reload: true
+                 
+key_bindings:
+
+  - { key: Key0, mods: Control, action: ResetFontSize }
+
+  - { key: Equals, mods: Control, action: IncreaseFontSize }
+
+  - { key: Minus, mods: Control, action: DecreaseFontSize }

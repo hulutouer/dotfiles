@@ -1,0 +1,17 @@
+import = ["/home/sam/.config/alacritty/catppuccin/alacritty/catppuccin-mocha.toml"]
+live_config_reload = true
+
+[[keyboard.bindings]]
+action = "ResetFontSize"
+key = "Key0"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Equals"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Minus"
+mods = "Control"
