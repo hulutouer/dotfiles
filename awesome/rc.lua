@@ -12,7 +12,7 @@ require("awful.autofocus")
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
- --local menubar = require("menubar")
+--local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -44,7 +44,14 @@ do
     end)
 end
 -- }}}
-
+-- 定义一个函数用来检查当前聚焦的窗口是否为 polybar
+local function is_focused_client_polybar(client)
+    -- 检查客户端的名字是否包含 "polybar"
+    if client then
+        return string.match(client.name, "polybar") ~= nil
+    end
+    return false
+end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 -- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
@@ -64,8 +71,8 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     -- 取消不需要的布局，只需在相应的行前加上注释符"--"
-    awful.layout.suit.fair, -- 公平布局（垂直）
-    --awful.layout.suit.tile, -- 平铺布局
+    --awful.layout.suit.fair, -- 公平布局（垂直）
+    awful.layout.suit.tile, -- 平铺布局
     awful.layout.suit.floating, -- 浮动布局
     --awful.layout.suit.max, -- 最大化布局
     --awful.layout.suit.fair.horizontal, -- 公平布局（水平）
@@ -108,15 +115,15 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 
 -- Menubar configuration
--- menubar.utils.terminal = terminal -- Set the terminal for applications that require it
--- }}}
+--menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+--}}}
 
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
 
--- {{{ Wibar
--- Create a textclock widget
--- mytextclock = wibox.widget.textclock()
+--{{{ Wibar
+--Create a textclock widget
+--mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -171,7 +178,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
     --clash eeed  f484
     --GPT f4be  󰨞
-    awful.tag({ "", "", "", "", "", "", "󰨞", "", "", "a", "b", "d", "e", "f" }, s, awful.layout.layouts[1])
+    awful.tag({ "", "", "", "", "󰢹", "", "󰨞", "", "", "", "", "", "", "" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -384,11 +391,24 @@ clientkeys = gears.table.join(
                 end,
                 { description = "toggle fullscreen", group = "client" }),
 -- 按下modkey + Shift + c键关闭客户端
-
-        awful.key({ modkey, "Shift" }, "c", function(c)
-            c:kill()
-        end,
+--
+--        awful.key({ modkey, "Shift" }, "c", function(c)
+--            c:kill()
+--        end,
+--                { description = "close", group = "client" }),
+-- 在这里添加你的快捷键
+        awful.key(
+                { modkey, "Shift" }, "c",
+                function()
+                    local focused_client = client.focus
+                    -- 如果聚焦的窗口不是 polybar，则关闭窗口
+                    if not is_focused_client_polybar(focused_client) then
+                        focused_client:kill()
+                    end
+                end,
                 { description = "close", group = "client" }),
+
+
 -- 按下modkey + Control + space键切换浮动模式
         awful.key({ modkey, "Control" }, "space", awful.client.floating.toggle,
                 { description = "toggle floating", group = "client" }),
@@ -498,26 +518,26 @@ local key_to_tag = {
 
 for key, tag_index in pairs(key_to_tag) do
     globalkeys = gears.table.join(globalkeys,
-        awful.key({ modkey }, key,
-            function()
-                local screen = awful.screen.focused()
-                local tag = screen.tags[tag_index]
-                if tag then
-                    tag:view_only()
-                end
-            end,
-            { description = "view tag " .. tag_index, group = "tag" }),
-            -- 将聚焦的客户端移动到标签
-        awful.key({ modkey, "Shift" }, key,
-            function()
-                if client.focus then
-                    local tag = client.focus.screen.tags[tag_index]
-                    if tag then
-                        client.focus:move_to_tag(tag)
-                    end
-                end
-            end,
-            { description = "move focused client to tag " .. tag_index, group = "tag" })
+            awful.key({ modkey }, key,
+                    function()
+                        local screen = awful.screen.focused()
+                        local tag = screen.tags[tag_index]
+                        if tag then
+                            tag:view_only()
+                        end
+                    end,
+                    { description = "view tag " .. tag_index, group = "tag" }),
+    -- 将聚焦的客户端移动到标签
+            awful.key({ modkey, "Shift" }, key,
+                    function()
+                        if client.focus then
+                            local tag = client.focus.screen.tags[tag_index]
+                            if tag then
+                                client.focus:move_to_tag(tag)
+                            end
+                        end
+                    end,
+                    { description = "move focused client to tag " .. tag_index, group = "tag" })
     )
 end
 
@@ -629,11 +649,12 @@ client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", { raise = false })
 end)
 
-awful.spawn.with_shell("picom &")
+--awful.spawn.with_shell("picom &")
 -- awful.spawn.with_shell("xrandr --output DP-2  --mode 2560x1440 --rate 60")
 awful.spawn.with_shell("source $HOME/.config/polybar/launch_polybar.sh")
 awful.spawn.with_shell("feh --bg-fill --randomize /home/sam/Pictures/*")
 -- awful.spawn.with_shell("mpd &")
 -- awful.spawn.with_shell("imwheel")
 awful.spawn.with_shell("numlockx on")
+
 

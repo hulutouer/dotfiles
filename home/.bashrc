@@ -16,18 +16,25 @@ alias la='ls -A'
 alias l='ls -CF'
 alias ls='ls --colo=auto'
 alias l.="ls -A | egep '^\.'"
-alias grep='grep --colo=auto'
+alias gep='gep --colo=auto'
 alias df="df -h"
 alias fee="fee -mt"
 alias update-fc='sudo fc-cache -fv'
 alias hibenate="systemctl hibenate"
 alias fetchit="fetchit -t cyan -b yellow -o magenta -f ~/softwae/woman_ascii.txt "
-
+alias cisconnect="sudo openconnect 192.227.177.206:443 --no-dtls --servercert pin-sha256:y/W2pVYXAiLOUgS/AdAh+bZMgEqCx8YOkCW6jcYyZEo= -u sam"
+alias wgup="sudo wg-quick up wg0"
+alias wgdown="sudo wg-quick down wg0"
+# 挂载群辉
+alias mountqunhui="sudo mount -t cifs -o uid=sam,username=huawei,password=Slj3646287,iocharset=utf8 //192.168.1.230/homes /data/qunhui"
+alias mountstorage="sudo mount -t cifs -o uid=sam,username=userroot,password=3646287,iocharset=utf8 //192.168.1.247/d7180 /data/storage"
 #switch between bash and zsh
 alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
 alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
 alias tofish="sudo chsh $USER -s /bin/fish && echo 'Now log out.'"
-
+# backlight
+alias uplight="light -U 10"
+alias lowlight="light -A 10"
 #hadwae info --shot
 #sudo pacman -S hwinfo
 alias hw="hwinfo --shot"
@@ -36,7 +43,9 @@ alias hw="hwinfo --shot"
 #alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
 
 ### Pompt ###
+#提示符的开头一定要用\[  颜色开头要用\
 PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
 
 # # ex = EXtacto fo all kinds of achives
 # # pacman -S p7zip una unzip 
@@ -68,6 +77,7 @@ ex ()
 
 # china luna cal
 # luna-date
+#----------------DIY RM START-----------------
 rewrite_rm()
 {
   # 判断是否有.trash目录，如果没有则创建
@@ -109,6 +119,37 @@ rewrite_rm()
       fi
   fi
 }
-alias rm=rewrite_rm
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/bin/virtualenvwrapper.sh
+alias samrm=rewrite_rm
+#----------------DIY RM END-----------------
+alias changewpp="feh --bg-fill --randomize /home/sam/Pictures/*"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/sam/.config/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/sam/.config/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/sam/.config/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/sam/.config/anaconda3/bin:$PATH"
+    fi
+fi
+#unset __conda_setup
+# <<< conda initialize <<<
+
+
+
+
+function proxy_on() {
+    export http_proxy=http://127.0.0.1:7890
+    export https_proxy=http://127.0.0.1:7890
+    echo -e "终端代理已开启。"
+}
+
+function proxy_off(){
+    unset http_proxy https_proxy
+    echo -e "终端代理已关闭。"
+}
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+export PATH="$PATH:/home/sam/.cargo/bin"
